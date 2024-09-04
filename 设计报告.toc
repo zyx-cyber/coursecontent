@@ -1,6 +1,0 @@
-\contentsline {section}{\numberline {1}练习内容和结果}{1}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Git}{1}{subsection.1.1}%
-\contentsline {subsection}{\numberline {1.2}LaTeX}{3}{subsection.1.2}%
-\contentsline {section}{\numberline {2}解题感悟}{4}{section.2}%
-\contentsline {section}{\numberline {3}参考链接}{5}{section.3}%
-\contentsline {section}{\numberline {4}github链接}{5}{section.4}%
