@@ -1,0 +1,117 @@
+\documentclass[a4paper ,12pt]{article}
+\usepackage{ctex}
+\usepackage{hyperref}
+\usepackage{graphicx}
+
+\begin{document}
+	
+	\title{系统开发工具基础课程实验报告}
+	\author{姓名：张誉馨}
+	\date{\today}
+	\maketitle
+	
+	\pagenumbering{roman}
+	\tableofcontents
+	\newpage
+	\pagenumbering{arabic}
+	
+	\section{练习内容和结果}
+	
+	\subsection{Shell工具和脚本}
+	1.阅读 $man${ }$ls$ ，然后使用 $ls$ 命令进行如下操作：
+	
+	2.所有文件（包括隐藏文件）：$-a$
+	
+	3.文件打印以人类可以理解的格式输出 (例如，使用 454M 而不是 454279954)：$-h$
+	
+	4.文件以最近访问顺序排序：$-t$
+	
+	5.以彩色文本显示输出结果：$--color=auto$
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p23}
+		\caption{man ls}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p22}
+		\caption{使用ls命令进行操作}
+	\end{figure}
+	
+    6.编写两个 bash 函数 marco 和 polo 执行下面的操作。 每当你执行 marco 时，当前的工作目录应当以某种形式保存，当执行 polo 时，无论现在处在什么目录下，都应当 cd 回到当时执行 marco 的目录。 为了方便 debug，你可以把代码写在单独的文件 marco.sh 中，并通过 source marco.sh 命令，（重新）加载函数。
+		\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p24}
+		\caption{两个bash函数marco和polo}
+	\end{figure}
+	
+		\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p25}
+		\caption{source marco.sh 命令}
+	\end{figure}
+	
+	7.假设您有一个命令，它很少出错。因此为了在出错时能够对其进行调试，需要花费大量的时间重现错误并捕获输出。 编写一段bash脚本，运行如下的脚本直到它出错，将它的标准输出和标准错误流记录到文件，并在最后输出所有内容。 加分项：报告脚本在失败前共运行了多少次。
+    	\begin{figure}[h]
+    	\centering
+    	\includegraphics[width=0.5\textwidth]{p26}
+    	\caption{编写的bash脚本}
+    \end{figure}
+	
+		\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p27}
+		\caption{报告脚本在失败前运行多少次}
+	\end{figure}
+	
+	8.本节课我们讲解的 find 命令中的 -exec 参数非常强大，它可以对我们查找的文件进行操作。 如果我们要对所有文件进行操作呢？例如创建一个zip压缩文件？我们已经知道，命令行可以从参数或标准输入接受输入。在用管道连接命令时，我们将标准输出和标准输入连接起来，但是有些命令，例如tar 则需要从参数接受输入。这里我们可以使用xargs 命令，它可以使用标准输入中的内容作为参数。 例如 ls | xargs rm 会删除当前目录中的所有文件。您的任务是编写一个命令，它可以递归地查找文件夹中所有的HTML文件，并将它们压缩成zip文件。注意，即使文件名中包含空格，您的命令也应该能够正确执行（提示：查看 xargs的参数-d）译注：MacOS 上的 xargs没有-d，查看这个issue
+	
+	如果您使用的是 MacOS，请注意默认的 BSD find 与GNU coreutils 中的是不一样的。你可以为find添加-print0选项，并为xargs添加-0选项。作为 Mac 用户，您需要注意 mac 系统自带的命令行工具和 GNU 中对应的工具是有区别的；如果你想使用 GNU 版本的工具，也可以使用 brew 来安装。
+	（1）首先创建所需的文件
+	
+	（2）执行find命令
+	
+		\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p28}
+		\caption{创建所需的文件后执行find命令}
+	\end{figure}
+	9.（进阶）编写一个命令或脚本递归的查找文件夹中最近使用的文件。更通用的做法，你可以按照最近的使用时间列出文件吗？
+	
+	find . -type f -print0 $|$ xargs -0 ls -lt $|$ head -1
+    	\begin{figure}[h]
+    	\centering
+    	\includegraphics[width=0.5\textwidth]{p29}
+    	\caption{编写脚本按照最近的使用时间列出文件}
+    \end{figure}
+	
+	 \subsection{编辑器Vim}
+	 1.完成 vimtutor。备注：它在一个 80x24（80 列，24 行） 终端窗口看起来效果最好。
+	 vimtutor
+	 
+	 2.下载我们的vimrc，然后把它保存到 \~{}/.vimrc。 通读这个注释详细的文件 （用 Vim!）， 然后观察 Vim 在这个新的设置下看起来和使用起来有哪些细微的区别。
+	 
+	 先下载下来这个文件，之后拖入虚拟机里就复制成功了，然后vim它
+	 
+	 
+	 3.安装和配置一个插件： ctrlp.vim.
+	 用 mkdir -p ~/.vim/pack/vendor/start 创建插件文件夹
+	 下载这个插件： cd ~/.vim/pack/vendor/start; git clone https://github.com/ctrlpvim/ctrlp.vim
+	 下载后需要在~/.vimrc 中添加如下设置，参考这里
+	 set runtimepath\^=~/.vim/pack/vendor/start/ctrlp.vim
+	 
+	 4.请阅读这个插件的文档。 尝试用 CtrlP 来在一个工程文件夹里定位一个文件， 打开 Vim, 然后用 Vim 命令控制行开始 :CtrlP.
+	 
+	 5.自定义 CtrlP： 添加 configuration 到你的 ~/.vimrc 来用按 Ctrl-P 打开 CtrlP
+	 
+	 
+	 \subsection{数据整理}
+	 	
+	 \section{解题感悟} 
+	 
+	 \section{github链接}
+	 
+	 
+\end{document}
