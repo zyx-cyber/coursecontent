@@ -1,0 +1,331 @@
+\documentclass[a4paper ,12pt]{article}
+\usepackage{ctex}
+\usepackage{hyperref}
+\usepackage{graphicx}
+
+\begin{document}
+	
+	\title{系统开发工具基础课程实验报告}
+	\author{姓名：张誉馨}
+	\date{\today}
+	\maketitle
+	
+	\pagenumbering{roman}
+	\tableofcontents
+	\newpage
+	\pagenumbering{arabic}
+	
+	\section{练习内容和结果}
+	
+	\subsection{python基础}
+	1.hello world      
+	
+	001helloworld.py里的内容是：print("Hello, Python!")
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p30}
+		\caption{hello world}
+	\end{figure}
+	
+	2.创建一个 Python 脚本进行变量定义和操作
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p31}
+		\caption{创建python脚本variables.py进行变量定义和操作}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p32}
+		\caption{运行脚本variables.py}
+	\end{figure}
+	
+	3.掌握 Python 中的控制结构和函数定义。
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p33}
+		\caption{创建python脚本control\_structures.py测试控制结构}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p34}
+		\caption{执行control\_structures.py脚本}
+	\end{figure}
+	
+	4.学习如何定义和调用函数。
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p36}
+		\caption{创建add\_numbers.py脚本学习定义和调用函数}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p35}
+		\caption{执行add\_structures.py脚本}
+	\end{figure}
+	
+	5.菱形
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p52}
+		\caption{输出菱形}
+	\end{figure}
+	
+	
+	6.  下面是一个示例 Python脚本loop.py，它演示了如何使用不同类型的循环（for 和 while）来处理基本的循环任务。这个脚本将打印从 1 到 5 的数字，并在 while 循环中计算数字的平方。
+		\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p53}
+		\caption{loop.py}
+	\end{figure}
+	
+		\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p54}
+		\caption{执行loop.py}
+	\end{figure}
+	
+	7.下面是一个简单的 Python 脚本，用于判断一个给定的年份是否为闰年
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p55}
+		\caption{leap\_year.py}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p56}
+		\caption{执行leap\_year.py}
+	\end{figure}
+	
+	\subsection{python视觉应用}
+	1.PIL：Python 图像处理类库。
+	
+	写个简单的Python程序，完成以下功能：
+	a)打开一幅图片（如自己的照片）
+	
+	b)将图片大小修改成640*480
+	
+	c)将修改大小后的图像转成黑白图像
+	
+	d)将黑白图像存成gif格式
+	
+	实验图片路径为：
+	imgs/exp1\_1.jpg
+	输出路径为：outputs/
+	请按照exp1\_1\_i的格式，输出四个结果，比如a)的结果保存为：outputs/exp1\_1\_1.jpg
+    
+    \begin{figure}[h]
+    	\centering
+    	\includegraphics[width=0.5\textwidth]{p37}
+    	\caption{PIL库运用实例}
+    \end{figure}
+    
+    \begin{figure}[h]
+    	\centering
+    	\includegraphics[width=0.5\textwidth]{exp1\_1\_1}
+    	\caption{a)输出结果}
+    \end{figure}
+    
+    \begin{figure}[h]
+    	\centering
+    	\includegraphics[width=0.5\textwidth]{exp1\_1\_2}
+    	\caption{b)输出结果}
+    \end{figure}
+    
+     \begin{figure}[h]
+    	\centering
+    	\includegraphics[width=0.5\textwidth]{exp1\_1\_3}
+    	\caption{c)输出结果}
+    \end{figure}
+    
+	 2.Matplotlib 
+	 from PIL import Image
+	 
+	 from pylab import *
+	 
+	 import numpy as np
+	 
+	 \# 读取图像到数组中
+	 
+	 im = np.array(Image.open('empire.jpg'))
+	 
+	 \# 绘制图像
+	 
+	 imshow(im)
+	 
+	 \# 一些点
+	 
+	 x = [100,100,400,400]
+	 
+	 y = [200,500,200,500]
+	 
+	 \# 使用红色星状标记绘制点
+	 
+	 plot(x,y,'r*')
+	 
+	 \# 绘制连接前两个点的线
+	 
+	 plot(x[:2],y[:2])
+	 
+	 \# 添加标题，显示绘制的图像
+	 
+	 title('Plotting: "empire.jpg"')
+	 
+	 show()
+	 
+	 \begin{figure}[h]
+	 	\centering
+	 	\includegraphics[width=0.5\textwidth]{p38}
+	 	\caption{运行matplotlib.py}
+	 \end{figure}
+	
+	3.Numpy
+	  \begin{figure}[h]
+	 	\centering
+	 	\includegraphics[width=0.5\textwidth]{p39}
+	 	\caption{numpy.py}
+	 \end{figure}
+	 
+	  \begin{figure}[h]
+	 	\centering
+	 	\includegraphics[width=0.5\textwidth]{p40}
+	 	\caption{运行numpy.py}
+	 \end{figure}
+	 
+	 4.1.imgs目录下有图像boardWithNoise.jpg，用Python写程序，采用自适应中值滤波器去除噪声干扰。
+	 
+	 实验图片路径为：
+	 imgs/boardWithNoise.jpg
+	 
+	 输出路径为：outputs/
+	 
+	 请按照exp4\_2\_i的格式，输出每个任务结果
+	 
+	 \begin{figure}[h]
+	 	\centering
+	 	\includegraphics[width=0.5\textwidth]{p41}
+	 	\caption{自适应中值滤波去噪上半部分}
+	 \end{figure}
+	 
+	 \begin{figure}[h]
+	 	\centering
+	 	\includegraphics[width=0.5\textwidth]{p42}
+	 	\caption{自适应中值滤波去噪下半部分}
+	 \end{figure}
+	 
+	 5.imgs目录下有图像windmill\_noise.png，用Python写程序，去除条纹干扰。
+	 
+	 实验图片路径为：
+	 imgs/windmill\_noise.png
+	 
+	 输出路径为：outputs/
+	 
+	 请按照exp4\_1\_i的格式，输出每个任务结果
+	 
+	 \begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p43}
+		\caption{去除条纹干扰}
+	\end{figure}
+	
+	6.将Sobel算子编码到pytorch卷积核中，并用编码的卷积核对图像100\_3228.jpg执行卷积操作，输出结果（水平梯度图像、垂直梯度图像和梯度幅值图像），理解卷积操作与空间域滤波的关系。
+	
+	实验图片路径为：
+	imgs/100\_3228.jpg
+	
+	输出路径为：outputs/
+	
+	请按照exp2\_3\_i的格式，输出结果
+	比如结果保存为：outputs/exp2\_3\_1.jpg
+	 \begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p44}
+		\caption{卷积}
+	\end{figure}
+	
+	7.imgs目录下有图像laoshan.jpg，用Python写程序，将其作4阶haar小波变换 ，仅保留第四阶变换的系数，反变换，查看图像的结果。
+	（Matlab代码已经给出，仅作参考）
+	
+	实验图片路径为：
+	imgs/laoshan.jpg
+	
+	输出路径为：outputs/
+	
+	请按照exp5\_1\_i的格式，输出每个任务结果
+	 \begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p45}
+		\caption{小波变换}
+	\end{figure}
+	
+	8.imgs目录下有图像1.jpg和2.jpg，用Python写程序，使用基于小波变换的方法将2.jpg中的人物融合到1.jpg中，提升融合效果。
+	
+	实验图片路径为：
+	imgs/1.jpg
+	imgs/2.jpg
+	
+	输出路径为：outputs/
+	
+	请按照exp5\_2\_i的格式，输出每个任务结果
+	
+	 \begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p46}
+		\caption{小波变换上半部分}
+	\end{figure}
+	
+	 \begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p47}
+		\caption{小波变换下半部分}
+	\end{figure}
+	
+	9.通过离散傅里叶变换我们可以得到频谱图，通过离散傅里叶逆变换我们可以将频谱图转换为原图，请使用pytorch实现离散傅里叶逆变换（可使用库函数或自定义函数），并将频谱图设置为初始值为高斯噪声的模型参数，利用逆变换的结果与原图之间的均方误差作为损失函数对模型参数进行优化，验证是否能够通过优化学习到频谱图。
+	
+	实验图片路径为：imgs/2.JPG
+	
+	输出路径为：outputs/
+	
+	请按照exp3\_3\_i的格式，输出结果
+	
+	 \begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p48}
+		\caption{离散傅里叶逆变换上半部分}
+	\end{figure}
+	
+	 \begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p49}
+		\caption{离散傅里叶逆变换下半部分}
+	\end{figure}
+	
+	10.墙纸分割实验
+	 \begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p50}
+		\caption{墙纸分割实验上半部分}
+	\end{figure}
+	
+	 \begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p51}
+		\caption{墙纸分割实验下半部分}
+	\end{figure}
+	
+	\section{解题感悟}
+	通过这次试验我了解了python基础知识和python计算机视觉相关知识，了解了如何在虚拟机中创建以及运行python脚本，了解了numpy、PIL、matplotlib、opencv等python库。此外还发现如果Tex course中图片太多时可以保存到Tex course里，无法粘贴也没事。
+	
+	\section{GitHub链接}
+	\href{https://github.com/zyx-cyber/coursecontent.git}{https://github.com/zyx-cyber/coursecontent.git}
+	
+	
+\end{document}
