@@ -2,6 +2,7 @@
 \usepackage{ctex}
 \usepackage{hyperref}
 \usepackage{graphicx}
+\usepackage[T1]{fontenc}
 
 \begin{document}
 	
@@ -321,8 +322,122 @@
 		\caption{墙纸分割实验下半部分}
 	\end{figure}
 	
+	\subsection{命令行环境}
+	1.我们可以使用类似 ps aux $|$ grep 这样的命令来获取任务的 pid ，然后您可以基于pid 来结束这些进程。但我们其实有更好的方法来做这件事。在终端中执行 sleep 10000 这个任务。然后用 Ctrl-Z 将其切换到后台并使用 bg来继续允许它。现在，使用 pgrep 来查找 pid 并使用 pkill 结束进程而不需要手动输入pid。(提示：: 使用 -af 标记)。
+	
+	sleep 10000
+	
+	Ctrl-Z
+	
+	bg
+	
+	pgrep sleep \#列出包含关键字 sleep 的进程的 pid
+	
+    
+	
+	\# 76560
+	
+	\# 81186
+	
+	\# 81292
+	
+	pgrep sleep 10000 \#列出包含关键字 sleep 的进程的 pid
+	
+	>
+	
+	\# 76560
+	
+	\# 81186
+	
+	\# 81292
+	
+	-a  Include process ancestors in the match list.  By default, the current pgrep or pkill process and all of its ancestors are excluded (unless -v is used).
+	
+	-f  Match against full argument lists. The default is to match against process names.
+	
+	pkill  -af sleep
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p57}
+		\caption{获取任务pid及相关操作}
+	\end{figure}
+	
+	2.如果您希望某个进程结束后再开始另外一个进程， 应该如何实现呢？ 在这个练习中，我们使用 sleep 60 \& 作为先执行的程序。一种方法是使用 wait 命令。尝试启动这个休眠命令，然后待其结束后再执行 ls 命令。
+	sleep 60 \&
+	pgrep sleep $|$ wait; ls
+	但是，如果我们在不同的 bash 会话中进行操作，则上述方法就不起作用了。因为 wait 只能对子进程起作用。之前我们没有提过的一个特性是，kill 命令成功退出时其状态码为 0 ，其他状态则是非0。kill -0 则不会发送信号，但是会在进程不存在时返回一个不为0的状态码。请编写一个 bash 函数 pidwait ，它接受一个 pid 作为输入参数，然后一直等待直到该进程结束。您需要使用 sleep 来避免浪费 CPU 性能。
+	
+	pidwait()
+	
+	\{
+		while kill -0 \$1 \#循环直到进程结束
+		
+		do
+		
+		sleep 1 
+		
+		done
+		
+		ls
+	\}
+	
+	需要注意的是，这里 while 判断的是命令行的返回值而不是布尔值，这个和其他语言有所区别。返回值 0 表示成功所以能够进入循环
+	
+	sleep 60 \& pidwait \$(pgrep sleep 60)
+	[1] 554
+	
+	[1]  + 554 done       sleep 60
+	
+	pidwait:kill:2: kill 554 failed: no such process
+	
+	buggy.sh     debug\_for.sh html\_root    out.log
+	
+	debug.sh     html.zip     marco.sh
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p58}
+		\caption{某进程结束后开始另一进程}
+	\end{figure}
+	
+	3.创建一个 dc 别名，它的功能是当我们错误的将 cd 输入为 dc 时也能正确执行。
+	
+	alias dc=cd
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p59}
+		\caption{创建别名}
+	\end{figure}
+	
+	4.执行 history | awk '\{\$1="";print substr(\$0,2)\}' | sort | uniq -c | sort -n | tail -n 10 来获取您最常用的十条命令，尝试为它们创建别名。注意：这个命令只在 Bash 中生效，如果您使用 ZSH，使用history 1 替换 history。
+	history | awk '{\$1="";print substr(\$0,2)}' | sort | uniq -c | sort -n | tail -n 10
+	
+	62 g++ -std=c++11 tests.cpp
+	
+	64 npm run src:build
+	
+	68 git pull
+	
+	80 ./a.out
+	
+	118 git status
+	
+	186 ll
+	
+	258 cd ..
+	
+	263 git push
+	
+	376 git add .
+	
+	1066 ls
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p60}
+		\caption{获取最常用的10条命令，尝试为他们创建别名}
+	\end{figure}
+	
 	\section{解题感悟}
-	通过这次试验我了解了python基础知识和python计算机视觉相关知识，了解了如何在虚拟机中创建以及运行python脚本，了解了numpy、PIL、matplotlib、opencv等python库。此外还发现如果Tex course中图片太多时可以保存到Tex course里，无法粘贴也没事。
+	通过这次试验我了解了python基础知识和python计算机视觉相关知识，了解了如何在虚拟机中创建以及运行python脚本，了解了numpy、PIL、matplotlib、opencv等python库。此外还发现如果Tex course中图片太多时可以保存到Tex course里，无法粘贴也没事，同时也发现他们的环境确实不太稳定，执行了命令之后环境可能会改变导致之前可以执行成功的命令无法执行。
 	
 	\section{GitHub链接}
 	\href{https://github.com/zyx-cyber/coursecontent.git}{https://github.com/zyx-cyber/coursecontent.git}
