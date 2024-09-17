@@ -1,0 +1,283 @@
+\documentclass[a4paper ,12pt]{article}
+\usepackage{ctex}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+
+\begin{document}
+	
+	\title{系统开发工具基础课程实验报告}
+	\author{姓名：张誉馨}
+	\date{\today}
+	\maketitle
+	
+	\pagenumbering{roman}
+	\tableofcontents
+	\newpage
+	\pagenumbering{arabic}
+	
+	\section{练习内容和结果}
+	
+	\subsection{调试及性能分析}
+	1.使用 Linux 上的 journalctl 或 macOS 上的 log show 命令来获取最近一天中超级用户的登录信息及其所执行的指令。如果找不到相关信息，您可以执行一些无害的命令，例如 sudo ls 然后再次查看。
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p61}
+		\caption{获取最近一天中超级用户的登录信息及其所执行的指令}
+	\end{figure}
+	
+	2.学习这份 pdb 实践教程并熟悉相关的命令。更深入的信息您可以参考这份教程。
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p62}
+		\caption{pdb教程}
+	\end{figure}
+	
+	3.安装 shellcheck 并尝试对下面的脚本进行检查。
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p65}
+		\caption{待检查脚本}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p63}
+		\caption{安装shellcheck}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p64}
+		\caption{对脚本进行检查}
+	\end{figure}
+	
+	4.我们经常会遇到的情况是某个我们希望去监听的端口已经被其他进程占用了。让我们通过进程的PID查找相应的进程。首先执行 python -m http.server 4444 启动一个最简单的 web 服务器来监听 4444 端口。在另外一个终端中，执行 lsof | grep LISTEN 打印出所有监听端口的进程及相应的端口。找到对应的 PID 然后使用 kill <PID> 停止该进程。
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p66}
+		\caption{启动web服务器来监听端口}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p67}
+		\caption{在新终端中打印出所有监听端口的进程及相应的端口}
+	\end{figure}
+	
+	5.检查使用的python版本
+	
+	你可以在你的终端上运行如下的命令：
+	
+	python --version
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p68}
+		\caption{检查使用的python版本}
+	\end{figure}
+	
+	6.pdb教程中以游戏形式引导
+	
+	我们已经讨论了调试器的功能，现在到了先看看它是如何工作的时候了。首先，如果你还没有克隆这个仓库的话要先克隆。如果你还没有安装git的话，我建议你尝试安装并使用它（或者是其他的源代码工具），您可以参考这里来安装git。在您安装好git之后，在您的终端运行以下命令来克隆仓库：
+	
+	git clone https://github.com/spiside/pdb-tutorial
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p69}
+		\caption{克隆仓库}
+	\end{figure}
+	
+	7.接上一问，在终端输入以下命令来运行这个程序：
+	
+	python main.py
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p70}
+		\caption{在git bash中运行main.py及输出}
+	\end{figure}
+	
+	8.接上一问，是时候到了使用 python 自带的调试器pdb的时候了。这个调试器包含在 python 的标准库中，我们就像使用任何一个 python 库一样来使用它。首先，我们应先加载pdb模块，然后调用它的方法在程序中设置用于调试的程序断点。传统的方法是将加载和调用放在想要程序暂停运行的位置。这个是会用到的完整声明语句：
+	
+	import pdb; pdb.set\_trace()
+	
+	set\_trace()方法在被调用的地方设置了一个程序断点。让我们来打开main.py文件并在第8行添加程序断点：
+	
+	file: main.py
+	
+	from dicegame.runner import GameRunner
+	
+	
+	def main():
+	
+	print("Add the values of the dice")
+	
+	print("It's really that easy")
+	
+	print("What are you doing with your life.")
+	
+	import pdb; pdb.set\_trace() \# add pdb here
+	
+	GameRunner.run()
+	
+	
+	if \_\_name\_\_ == "\_\_main\_\_":
+	main()
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p71}
+		\caption{在main.py中添加程序断点}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p72}
+		\caption{再次运行main.py}
+	\end{figure}
+	
+	9.pdb命令之l(ist)。l(ist)又叫：我懒得打开包含源代码的文件。
+	
+	l(ist)- 显示当前行附近的11行，或者是继续前面的显示。
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p73}
+		\caption{学习l(ist)功能}
+	\end{figure}
+	上面的命令描述是调用help list生成的。如果要得到同样的输出，你可以在pdb中输入help l。我们可以使用list命令来检查我们所在命令的源代码。list的参数可以让你指定要查看的行的范围，这在你用来查看第三方库的时候很有用（往往代码会很长）。
+	
+	10.pdb命令之s(tep)。s(tep)又叫：让我们来看看这个方法做了什么......
+	
+	程序现在应该还停留:9在行，要知道当前在哪一行可以查看list命令输出的->箭头指向哪一行。
+	
+	让我们来调用step命令看看会发生什么。
+	
+	我们目前在runner.py文件的第 21 行，这一点可以从py(21)run()看出来。
+	
+	问题是，我们没有太多的上下文运行信息，所以让我们来list命令来检查这个方法。
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p74}
+		\caption{调用step后调用list}
+	\end{figure}
+	
+	11.接上一问，现在我们有了run()方法的更多上下文信息。但是我们现在还在:21行。让我们再次执行step命令来进入到这个方法内部，然后用list命令查看我们当前的位置。
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p75}
+		\caption{再次执行step后调用list}
+	\end{figure}
+	
+	12.pdb命令之n(ext)。n(ext)又叫：我希望当前的行不要发送异常。
+	
+	在当前行输入n(ext)命令，然后输入list（注意这个模式），然后看看发生了什么。
+	此时我停留在了runner = cls()这一行。
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p76}
+		\caption{输入next命令后调用list}
+	\end{figure}
+	
+	13.pdb命令之b(reak)。b(reak)又叫：我不想再输入n命令了。
+	
+	在本教程中，我们只关注b（reak）描述的前两段。正如在上一节中提到的，我们希望在for循环之后设置一个断点，这样我们就可以继续浏览run（）方法。让我们停在：34，因为它有输入功能，无论如何都会中断并等待用户输入。为此，我们可以键入b 34，然后继续到断点。
+	
+	我们还可以通过不带任何参数地调用break来查看我们设置的断点。
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p77}
+		\caption{用break来设置断点}
+	\end{figure}
+	
+	14.pdb命令之r(eturn)。pdb又叫：我想要退出这个功能。
+	
+	 return是一个很棒的 强用户 命令，让我们来检查函数的最终结果。虽然您可以在返回调用时设置断点，但是返回调用 return如果单个函数中有多个返回语句，pdb命令将有所帮助，因为它只遵循单个返回的执行路径。让我们称之为 return命令并到达函数的末尾。
+	 \begin{figure}[h]
+	 	\centering
+	 	\includegraphics[width=0.5\textwidth]{p78}
+	 	\caption{用return命令继续执行直到返回当前函数}
+	 \end{figure}
+	 
+	 \subsection{元编程}
+	 15.大多数的 makefiles 都提供了 一个名为 clean 的构建目标，这并不是说我们会生成一个名为clean的文件，而是我们可以使用它清理文件，让 make 重新构建。您可以理解为它的作用是“撤销”所有构建步骤。在上面的 makefile 中为paper.pdf实现一个clean 目标。您需要构建phony。您也许会发现 git ls-files 子命令很有用。其他一些有用的 make 构建目标可以在这里找到；
+	 \begin{figure}[h]
+	 	\centering
+	 	\includegraphics[width=0.5\textwidth]{p79}
+	 	\caption{编写makefile}
+	 \end{figure}
+	
+	16.指定版本要求的方法很多，学习一下 Rust的构建系统的依赖管理。大多数的包管理仓库都支持类似的语法。对于每种语法(尖号、波浪号、通配符、比较、乘积)，构建一种场景使其具有实际意义；
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p80}
+		\caption{学习rust构建系统的依赖管理}
+	\end{figure}
+	
+	17.Git 可以作为一个简单的 CI 系统来使用，在任何 git 仓库中的 .git/hooks 目录中，您可以找到一些文件（当前处于未激活状态），它们的作用和脚本一样，当某些事件发生时便可以自动执行。请编写一个pre-commit 钩子，当执行make命令失败后，它会执行 make paper.pdf 并拒绝您的提交。这样做可以避免产生包含不可构建版本的提交信息；
+	
+	修改.git/hooks 目录下面的pre-commit.sample文件并将其命名为pre-commit
+	
+	if  ! make ; then
+	
+	echo "build failed, commit rejected"
+	
+	exit 1
+	
+	fi
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p81}
+		\caption{修改.git/hooks目录下的pre-commit.sample}
+	\end{figure}
+	
+	\subsection{大杂烩}
+	18.创建键位映射。一个很常见的配置是修改键位映射。通常这个功能由在计算机上运行的软件实现。当某一个按键被按下，软件截获键盘发出的按键事件（keypress event）并使用另外一个事件取代。比如：将 Caps Lock 映射为 Ctrl 或者 Escape：Caps Lock 使用了键盘上一个非常方便的位置而它的功能却很少被用到，所以非常推荐这个修改；
+	将 PrtSc 映射为播放/暂停：大部分操作系统支持播放/暂停键；
+	交换 Ctrl 和 Meta 键（Windows 的徽标键或者 Mac 的 Command 键）。
+	也可以将键位映射为任意常用的指令。软件监听到特定的按键组合后会运行设定的脚本。
+	
+	打开一个新的终端或者浏览器窗口；
+	输出特定的字符串，比如：一个超长邮件地址或者 MIT ID；
+	使计算机或者显示器进入睡眠模式。
+	甚至更复杂的修改也可以通过软件实现：
+	
+	映射按键顺序，比如：按 Shift 键五下切换大小写锁定；
+	区别映射单点和长按，比如：单点 Caps Lock 映射为 Escape，而长按 Caps Lock 映射为 Ctrl；
+	对不同的键盘或软件保存专用的映射配置。
+	
+	19.守护进程。大部分计算机都有一系列在后台保持运行，不需要用户手动运行或者交互的进程。这些进程就是守护进程。以守护进程运行的程序名一般以 d 结尾，比如 SSH 服务端 sshd，用来监听传入的 SSH 连接请求并对用户进行鉴权。
+	
+	Linux 中的 systemd（the system daemon）是最常用的配置和运行守护进程的方法。运行 systemctl status 命令可以看到正在运行的所有守护进程。这里面有很多可能你没有见过，但是掌管了系统的核心部分的进程：管理网络、DNS 解析、显示系统的图形界面等等。用户使用 systemctl 命令和 systemd 交互来 enable（启用）、disable（禁用）、start（启动）、stop（停止）、restart（重启）、或者 status（检查）配置好的守护进程及系统服务。
+	
+	20.FUSE。现在的软件系统一般由很多模块化的组件构建而成。你使用的操作系统可以通过一系列共同的方式使用不同的文件系统上的相似功能。比如当你使用 touch 命令创建文件的时候，touch 使用系统调用（system call）向内核发出请求。内核再根据文件系统，调用特有的方法来创建文件。这里的问题是，UNIX 文件系统在传统上是以内核模块的形式实现，导致只有内核可以进行文件系统相关的调用。
+	
+	21.备份。有效备份方案的几个核心特性是：版本控制，删除重复数据，以及安全性。对备份的数据实施版本控制保证了用户可以从任何记录过的历史版本中恢复数据。在备份中检测并删除重复数据，使其仅备份增量变化可以减少存储开销。在安全性方面，作为用户，你应该考虑别人需要有什么信息或者工具才可以访问或者完全删除你的数据及备份。最后一点，不要盲目信任备份方案。用户应该经常检查备份是否可以用来恢复数据。
+	
+	22.窗口管理器。平铺式（tiling）管理器就是一个常见的替代。顾名思义，平铺式管理器会把不同的窗口像贴瓷砖一样平铺在一起而不和其他窗口重叠。这和 tmux 管理终端窗口的方式类似。平铺式管理器按照写好的布局显示打开的窗口。如果只打开一个窗口，它会填满整个屏幕。新开一个窗口的时候，原来的窗口会缩小到比如三分之二或者三分之一的大小来腾出空间。打开更多的窗口会让已有的窗口进一步调整。
+	
+	23.Markdown。在不使用 Word 或者 LaTeX 等复杂工具的情况下，可以考虑使用 Markdown 这个轻量化的标记语言（markup language）。可能已经见过 Markdown 或者它的一个变种。很多环境都支持并使用 Markdown 的一些子功能。
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p82}
+		\caption{markdown的一些使用指南}
+	\end{figure}
+	
+	\subsection{pytorch}
+	24.张量是一种特殊的数据结构，与数组和矩阵非常相似。在PyTorch中，我们使用张量对模型的输入和输出以及模型的参数进行编码。
+	
+	张量类似于数字Py但张量可以在GPU或其他硬件加速器上运行。事实上，张量和NumPy数组通常可以共享相同的底层内存，从而无需复制数据（请参阅带NumPy的桥). 张量也针对自动微分进行了优化。如果熟悉darrays，就可以轻松使用Tensor API。
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p83}
+		\caption{pytorch中张量的初始化}
+	\end{figure}
+	
+	\section{解题感悟}
+	通过这次实验我了解了调试和性能分析、元编程、大杂烩以及pytorch。学习了一些pdb命令，比如l(ist)、s(tep)、n(ext)、b(reak)、r(eturn)等，他们的功能可以根据字面意思来理解，如果想详细了解可以help后加命令。了解了安装并使用shellcheck来检查脚本，还了解了创建键位映射、守护进程、FUSE、备份、markdown等。
+	
+	
+	
+	\section{github链接}
+	\href{https://github.com/zyx-cyber/coursecontent.git}{https://github.com/zyx-cyber/coursecontent.git}
+	
+	
+\end{document}
